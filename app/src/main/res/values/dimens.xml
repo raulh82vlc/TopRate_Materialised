@@ -1,0 +1,31 @@
+<!--
+~ Copyright (C) ${YEAR} Raul Hernandez Lopez
+~
+~ Licensed under the Apache License, Version 2.0 (the "License");
+~ you may not use this file except in compliance with the License.
+~ You may obtain a copy of the License at
+~
+~       http://www.apache.org/licenses/LICENSE-2.0
+~
+~ Unless required by applicable law or agreed to in writing, software
+~ distributed under the License is distributed on an "AS IS" BASIS,
+~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~ See the License for the specific language governing permissions and
+~ limitations under the License.
+-->
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="button_elevation_low">9dp</dimen>
+    <dimen name="button_elevation_high">12dp</dimen>
+    <dimen name="elements_spacing_xsmall">2dp</dimen>
+    <dimen name="elements_spacing_medium">8dp</dimen>
+    <dimen name="elements_spacing_large">16dp</dimen>
+    <dimen name="elements_spacing_xlarge">32dp</dimen>
+    <dimen name="elements_spacing_img_big">250dp</dimen>
+    <dimen name="letter">16sp</dimen>
+    <dimen name="letter_title">24sp</dimen>
+    <dimen name="elements_spacing_img_small">60dp</dimen>
+</resources>
