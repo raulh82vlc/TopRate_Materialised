@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         />
     <ImageButton
-        android:id="@+id/imgBtn"
+        android:id="@+id/imgBtnFAB"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_width="@dimen/fab_size"

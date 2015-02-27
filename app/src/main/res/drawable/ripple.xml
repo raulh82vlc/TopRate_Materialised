@@ -18,13 +18,13 @@
     <item android:state_pressed="true">
         <shape
             android:shape="oval">
-            <solid android:color="@color/score_bright"/>
+            <solid android:color="@color/accent_bright"/>
         </shape>
     </item>
     <item>
         <shape
             android:shape="oval">
-            <solid android:color="@color/score"/>
+            <solid android:color="@color/accent"/>
 
         </shape>
     </item>

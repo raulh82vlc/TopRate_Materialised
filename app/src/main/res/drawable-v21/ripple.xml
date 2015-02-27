@@ -15,10 +15,10 @@
   ~ limitations under the License.
   -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/score_bright">
+    android:color="@color/accent_bright">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/score" />
+            <solid android:color="@color/accent" />
         </shape>
     </item>
 </ripple>

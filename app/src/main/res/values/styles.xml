@@ -19,9 +19,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item> 
         <item name="colorPrimaryDark">@color/primary_dark</item> 
-        <item name="colorControlHighlight">@color/score_translucent</item> 
-        <item name="android:colorControlHighlight">@color/score_translucent</item> 
-        <item name="colorAccent">@color/score</item>
+        <item name="colorControlHighlight">@color/accent_translucent</item> 
+        <item name="android:colorControlHighlight">@color/accent_translucent</item> 
+        <item name="colorAccent">@color/accent</item>
         <item name="selectableItemBackground">@drawable/statelist_item_background</item>
         <item name="android:selectableItemBackground">@drawable/statelist_item_background</item>
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>

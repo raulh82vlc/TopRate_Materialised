@@ -13,18 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.raulh82vlc.imdbfilmstoprate.activities;
 
-package com.raulh82vlc.imdbfilmstoprate.models;
+import android.app.Activity;
+import android.os.Bundle;
+
+import com.raulh82vlc.imdbfilmstoprate.api.WebServicesApiCalls;
 
 /**
- * Created by Raul Hernandez Lopez on 22/02/2015.
- * General constants used when variables passed
- * into Intents flow or General constants in the program
+ * Created by Raul Hernandez Lopez on 24/02/2015.
  */
-public final class Constants {
+public class BaseActivity extends Activity
+{
+    private WebServicesApiCalls webServicesApiCalls;
 
-    public static final String N_NAME_FILM = "com.raulhl82.imdbfilmstoprate.nFilm";
-    public static final String N_RANKING = "com.raulh82.imdbfilmstoprate.nRanking";
-    public static final int MIN = 1;;
-    public static final int MAX = 2;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        webServicesApiCalls = new WebServicesApiCalls(this);
+    }
+
+    protected WebServicesApiCalls getWebServicesApiCalls() {
+        return webServicesApiCalls;
+    }
 }

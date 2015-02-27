@@ -16,22 +16,16 @@
 
 package com.raulh82vlc.imdbfilmstoprate.activities;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.transition.ChangeTransform;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-import com.raulh82vlc.imdbfilmstoprate.api.WebServicesApiCalls;
 import com.raulh82vlc.imdbfilmstoprate.models.Constants;
 import com.raulh82vlc.imdbfilmstoprate.models.FilmDetailsJSONEntity;
 import com.raulh82vlc.imdbfilmstoprate.R;
@@ -49,7 +43,7 @@ import retrofit.client.Response;
  * CardView where the further details are filled
  */
 
-public class CardFilmDetailsActivity extends Activity {
+public class CardFilmDetailsActivity extends BaseActivity {
 
     // constant
     private static final String TAG_DETAIL = "FilmDetails";
@@ -76,15 +70,14 @@ public class CardFilmDetailsActivity extends Activity {
     // variable
     private int ranking = 0;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setAllowEnterTransitionOverlap(true);
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        getWindow().setSharedElementEnterTransition(new ChangeTransform());
-
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setAllowEnterTransitionOverlap(true);
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setSharedElementEnterTransition(new ChangeTransform());
+        }
         setContentView(R.layout.card_film_details_view);
         ButterKnife.inject(this);
 
@@ -106,7 +99,7 @@ public class CardFilmDetailsActivity extends Activity {
      * @param iFilmName
      */
     private void getTopRatedFilms(final String iFilmName) {
-        new WebServicesApiCalls(this).getFilmsByName(iFilmName, new Callback<List<FilmDetailsJSONEntity>>() {
+        getWebServicesApiCalls().getFilmsByName(iFilmName, new Callback<List<FilmDetailsJSONEntity>>() {
             @Override
             public void success(List<FilmDetailsJSONEntity> filmDetails, Response response) {
                 if (filmDetails != null && filmDetails.size() > 0) {
@@ -123,7 +116,7 @@ public class CardFilmDetailsActivity extends Activity {
                     /* Setting Film info for the card view */
                     txtTitle.setText(iFilmName);
                     txtMetaScore.setText("Score: " + filmDetail.getMetascore());
-                    txtMetaScore.setBackgroundColor(getResources().getColor(R.color.score));
+                    txtMetaScore.setBackgroundColor(getResources().getColor(R.color.accent));
                     txtYear.setText("Year: " + filmDetail.getYear());
                     txtSimplePlot.setText(filmDetail.getSimplePlot());
                     txtPlot.setText(filmDetail.getPlot());
@@ -145,27 +138,5 @@ public class CardFilmDetailsActivity extends Activity {
 
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_film_details, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

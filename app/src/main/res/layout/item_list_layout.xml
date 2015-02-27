@@ -59,6 +59,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/mock_info_content"
-        android:textColor="@color/score_bright"
+        android:textColor="@color/accent_bright"
         android:layout_toRightOf="@+id/imgRecycleView" />
 </LinearLayout>

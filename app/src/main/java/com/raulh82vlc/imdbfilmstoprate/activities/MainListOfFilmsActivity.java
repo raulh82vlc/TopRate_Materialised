@@ -16,8 +16,6 @@
 
 package com.raulh82vlc.imdbfilmstoprate.activities;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,62 +25,63 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.ChangeTransform;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 
-import com.raulh82vlc.imdbfilmstoprate.api.WebServicesApiCalls;
+import com.raulh82vlc.imdbfilmstoprate.R;
 import com.raulh82vlc.imdbfilmstoprate.models.Constants;
 import com.raulh82vlc.imdbfilmstoprate.models.FilmJSONEntity;
 import com.raulh82vlc.imdbfilmstoprate.widgets.RecyclerViewAdapter;
-import com.raulh82vlc.imdbfilmstoprate.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
  * Created by Raul Hernandez Lopez on 22/02/2015.
- *
+ * <p/>
  * Main Activity where the Recycler view fits
  * by means of a Web Services provider from IMDB
  * public API
  */
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class MainListOfFilmsActivity extends Activity
+public class MainListOfFilmsActivity extends BaseActivity
         implements RecyclerViewAdapter.OnItemClickListenerInterface,
         View.OnClickListener {
 
     // Initial variables
-    private final static int MIN = 1;
-    private ImageButton imgBtn;
-    private int MAX;
-    private RecyclerView mRecyclerView;
+    @InjectView(R.id.recycler_id)
+    RecyclerView mRecyclerView;
+    @InjectView(R.id.imgBtnFAB)
+    ImageButton imgBtn;
+
+    // up range of the films
+    private int upRangeFilms;
     private RecyclerViewAdapter mAdapter;
+    // Data structure
     private List<FilmJSONEntity> mFilms;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setAllowReturnTransitionOverlap(true);
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        getWindow().setSharedElementExitTransition(new ChangeTransform());
-
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setAllowReturnTransitionOverlap(true);
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setSharedElementExitTransition(new ChangeTransform());
+        }
         setContentView(R.layout.films_recycler_view);
-
-        imgBtn = (ImageButton) findViewById(R.id.imgBtn);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_id);
+        ButterKnife.inject(this);
 
         // Initialising Data structure
         mFilms = new ArrayList<>();
-        MAX = 2;
+        // Initialising Variable for handling
+        upRangeFilms = Constants.MAX;
         // Params to initialise Recycler View and Adapter
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -103,38 +102,35 @@ public class MainListOfFilmsActivity extends Activity
     @Override
     protected void onResume() {
         super.onResume();
-        getTopRatedFilms(MIN, MAX, true);
+        getTopRatedFilms(Constants.MIN, upRangeFilms, true);
     }
 
     /**
-     *
      * Method getTopRatedFilms
      * this does the getting from the network's API
      * then fills all corresponding model entities
      * and does the UI settings for providing the info corresponding
      * to each aspect of the film
-     * @param iFrom From the first value of the top
-     * @param iTo To the last value of the top you want to indicate
+     *
+     * @param iFrom      From the first value of the top
+     * @param iTo        To the last value of the top you want to indicate
      * @param iFirstTime this flag determines if we just add a value to
      *                   the end of the mFilms collection, or we need
      *                   to fill it completely, this procedure
      *                   is more efficient
      */
     private void getTopRatedFilms(final int iFrom, final int iTo, final boolean iFirstTime) {
-        new WebServicesApiCalls(this).getTopFilmsFromARange(iFrom, iTo, new Callback<List<FilmJSONEntity>>() {
+        getWebServicesApiCalls().getTopFilmsFromARange(iFrom, iTo, new Callback<List<FilmJSONEntity>>() {
             @Override
             public void success(List<FilmJSONEntity> filmJSONEntities, Response response) {
-                if(filmJSONEntities != null && filmJSONEntities.size() > 0)
-                {
+                if (filmJSONEntities != null && filmJSONEntities.size() > 0) {
                     int mFilmsSize = filmJSONEntities.size();
                     mFilmsSize--;
-                    if(iFirstTime) {
+                    if (iFirstTime) {
                         mFilms.clear();
                         mFilms.addAll(filmJSONEntities);
                         mAdapter.notifyDataSetChanged();
-                    }
-                    else
-                    {
+                    } else {
                         mFilms.add(filmJSONEntities.get(mFilmsSize));
                         mAdapter.notifyItemInserted(mFilmsSize);
                     }
@@ -149,27 +145,6 @@ public class MainListOfFilmsActivity extends Activity
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_recycler_view, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onItemFromListClick(View iView, FilmJSONEntity iFilm) {
@@ -180,6 +155,7 @@ public class MainListOfFilmsActivity extends Activity
      * Method startDetailsActivity
      * handles and launches the parameters to the Intent
      * with its corresponding transition
+     *
      * @param iView view
      * @param iFilm data structure which corresponds to the Film Entity itself
      */
@@ -200,11 +176,9 @@ public class MainListOfFilmsActivity extends Activity
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.imgBtn:
-                getTopRatedFilms(MIN, ++MAX, false);
+            case R.id.imgBtnFAB:
+                getTopRatedFilms(Constants.MIN, ++upRangeFilms, false);
                 break;
         }
     }
-
-
 }

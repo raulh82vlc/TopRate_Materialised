@@ -17,28 +17,17 @@ android {
 
     defaultConfig {
         applicationId "com.raulh82vlc.imdbfilmstoprate"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
 
-
-    signingConfigs {
-        releaseSignature {
-            storeFile file(RELEASE_FILE)
-            storePassword RELEASE_PASS
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASS
-        }
-    }
-
     buildTypes {
         release {
-            debuggable false
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.releaseSignature
         }
     }
 
@@ -51,10 +40,11 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/license.txt'
     }
-
+/*
     testOptions {
         unitTests.returnDefaultValues = true
     }
+    */
 }
 
 
