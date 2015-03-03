@@ -59,9 +59,9 @@ public class FilmDetailsJSONEntity {
     private String releaseDate;
     private String originalTitle;
     private String year;
-    private List<SubDetailsEntity> writers;
+    private List<SubDetailsJSONEntity> writers;
     private String rating;
-    private List<SubDetailsEntity> directors;
+    private List<SubDetailsJSONEntity> directors;
     private String rated;
 
     public void setUrlIMDB(String urlIMDB) {
@@ -108,7 +108,7 @@ public class FilmDetailsJSONEntity {
         this.year = year;
     }
 
-    public void setWriters(List<SubDetailsEntity> writers) {
+    public void setWriters(List<SubDetailsJSONEntity> writers) {
         this.writers = writers;
     }
 
@@ -116,7 +116,7 @@ public class FilmDetailsJSONEntity {
         this.rating = rating;
     }
 
-    public void setDirectors(List<SubDetailsEntity> directors) {
+    public void setDirectors(List<SubDetailsJSONEntity> directors) {
         this.directors = directors;
     }
 
@@ -168,7 +168,7 @@ public class FilmDetailsJSONEntity {
         return year;
     }
 
-    public List<SubDetailsEntity> getWriters() {
+    public List<SubDetailsJSONEntity> getWriters() {
         return writers;
     }
 
@@ -176,7 +176,7 @@ public class FilmDetailsJSONEntity {
         return rating;
     }
 
-    public List<SubDetailsEntity> getDirectors() {
+    public List<SubDetailsJSONEntity> getDirectors() {
         return directors;
     }
 
@@ -184,11 +184,11 @@ public class FilmDetailsJSONEntity {
         return rated;
     }
 
-    public String getToString(List<SubDetailsEntity> collective) {
+    public String getToString(List<SubDetailsJSONEntity> collective) {
         int position = 0;
         String str = "";
         int sizeOfWriters = collective.size();
-        for (SubDetailsEntity author : collective) {
+        for (SubDetailsJSONEntity author : collective) {
             if (position < sizeOfWriters - 1)
                 str += author.getName() + ", ";
             else

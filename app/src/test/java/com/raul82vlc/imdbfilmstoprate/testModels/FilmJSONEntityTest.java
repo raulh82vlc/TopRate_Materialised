@@ -22,7 +22,8 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 /**
- * Created by raul on 03/03/2015.
+ * Class to Test FilmJSONEntity model
+ * Created by Raul Hernandez Lopez on 03/03/2015.
  */
 public class FilmJSONEntityTest extends TestCase {
 
@@ -41,18 +42,21 @@ public class FilmJSONEntityTest extends TestCase {
         film.setIdIMDB("123456");
         assertEquals(film.getIdIMDB(), "123456");
     }
+
     @Test
     public void testSetUrlPoster()
     {
         film.setUrlPoster("http://ia.media-imdb.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_SX34_CR0,0,34,50_AL_.jpg");
         assertEquals(film.getUrlPoster(), "http://ia.media-imdb.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_SX34_CR0,0,34,50_AL_.jpg");
     }
+
     @Test
     public void testSetTitle()
     {
         film.setTitle("The Ring");
         assertEquals(film.getTitle(), "The Ring");
     }
+
     @Test
     public void testSetYear()
     {

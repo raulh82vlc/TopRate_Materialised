@@ -1,9 +1,9 @@
 package com.raulh82vlc.imdbfilmstoprate.models;
 
 /**
- * Created by raul on 03/03/2015.
+ * Created by Raul Hernandez Lopez on 03/03/2015.
  */
-public class SubDetailsEntity {
+public class SubDetailsJSONEntity {
 
     /**
      * name : Stephen King

@@ -17,8 +17,7 @@
 package com.raul82vlc.imdbfilmstoprate.testActivities;
 
 
-import android.content.Intent;
-import android.test.ActivityUnitTestCase;
+import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 
 import android.widget.ImageButton;
@@ -27,35 +26,48 @@ import com.raulh82vlc.imdbfilmstoprate.R;
 import com.raulh82vlc.imdbfilmstoprate.activities.MainListOfFilmsActivity;
 
 /**
- * Created by Raul on 22/02/2015.
+ * Class to Test MainListOfFilmsActivity activity
+ * Created by Raul Hernandez Lopez on 03/03/2015.
  */
+public class MainListOfFilmsActivityTest extends ActivityInstrumentationTestCase2<MainListOfFilmsActivity> {
 
-public class MainListOfFilmsActivityTest  extends ActivityUnitTestCase<MainListOfFilmsActivity> {
 
+    // private Intent mIntent;
+    private MainListOfFilmsActivity mMainActivity;
     private ImageButton btnFab;
-    private Intent mIntent;
 
     public MainListOfFilmsActivityTest() {
-
         super(MainListOfFilmsActivity.class);
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        mIntent = new Intent(getInstrumentation()
-                .getTargetContext(), MainListOfFilmsActivity.class);
+
+        setActivityInitialTouchMode(true);
+        // mIntent = new Intent(getActivity(), MainListOfFilmsActivity.class);
+
+        mMainActivity = getActivity();
+    }
+
+    @MediumTest
+    public void testPreconditions()
+    {
+        btnFab = (ImageButton) getActivity()
+                .findViewById(R.id.imgBtnFAB);
+        assertNotNull("btnFab is null", btnFab);
     }
 
     @MediumTest
     public void testNextActivityWasLaunchedWithIntent() {
-        startActivity(mIntent, null, null);
-
+        // startActivity(mIntent, null, null);
         btnFab = (ImageButton) getActivity()
                 .findViewById(R.id.imgBtnFAB);
         btnFab.performClick();
-        final Intent launchIntent = getStartedActivityIntent();
-        assertNotNull("Intent was null", launchIntent);
-        assertTrue(isFinishCalled());
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
     }
 }

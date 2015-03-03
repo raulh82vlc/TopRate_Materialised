@@ -18,7 +18,7 @@ package com.raul82vlc.imdbfilmstoprate.testModels;
 
 
 import com.raulh82vlc.imdbfilmstoprate.models.FilmDetailsJSONEntity;
-import com.raulh82vlc.imdbfilmstoprate.models.SubDetailsEntity;
+import com.raulh82vlc.imdbfilmstoprate.models.SubDetailsJSONEntity;
 
 import junit.framework.TestCase;
 
@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by raul on 03/03/2015.
+ * Class to Test FilmDetailsJSONEntity model
+ * Created by Raul Hernandez Lopez on 03/03/2015.
  */
 public class FilmDetailsJSONEntityTest  extends TestCase {
 
@@ -41,13 +42,16 @@ public class FilmDetailsJSONEntityTest  extends TestCase {
         // instance of the film entity
         filmDetails = new FilmDetailsJSONEntity();
 
-        List<SubDetailsEntity> writers1 = new ArrayList<>();
-        SubDetailsEntity newSub = new SubDetailsEntity();
+        List<SubDetailsJSONEntity> writers1 = new ArrayList<>();
+        List<SubDetailsJSONEntity> directors1 = new ArrayList<>();
+        SubDetailsJSONEntity newSub = new SubDetailsJSONEntity();
         newSub.setNameId("1A");
         newSub.setName("Cam1A");
         writers1.add(newSub);
+        directors1.add(newSub);
 
         filmDetails.setWriters(writers1);
+        filmDetails.setDirectors(directors1);
     }
 
     @Test
@@ -58,6 +62,35 @@ public class FilmDetailsJSONEntityTest  extends TestCase {
     }
 
     @Test
+    public void testSetTitle()
+    {
+        filmDetails.setTitle("The beauty and the beast");
+        assertEquals(filmDetails.getTitle(), "The beauty and the beast");
+    }
+
+    @Test
+    public void testSetPlot()
+    {
+        filmDetails.setPlot("Ergo ergo ergo ergo\n ergo ergo");
+        assertEquals(filmDetails.getPlot(), "Ergo ergo ergo ergo\n" +
+                " ergo ergo");
+    }
+
+    @Test
+    public void testSetSimplePlot()
+    {
+        filmDetails.setSimplePlot("Ergo ergo ergo ergo");
+        assertEquals(filmDetails.getSimplePlot(), "Ergo ergo ergo ergo");
+    }
+
+    @Test
+    public void testSetYear()
+    {
+        filmDetails.setYear("1920");
+        assertEquals(filmDetails.getYear(), "1920");
+    }
+
+    @Test
     public void testWriters()
     {
         assertEquals(filmDetails.getWriters().size(), 1);
@@ -65,15 +98,31 @@ public class FilmDetailsJSONEntityTest  extends TestCase {
     }
 
     @Test
+    public void testSetUrlPoster()
+    {
+        filmDetails.setUrlPoster("http://ia.media-imdb.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_SX34_CR0,0,34,50_AL_.jpg");
+        assertEquals(filmDetails.getUrlPoster(), "http://ia.media-imdb.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1_SX34_CR0,0,34,50_AL_.jpg");
+    }
+
+    @Test
     public void testGetToString()
     {
-        List<SubDetailsEntity> writers = filmDetails.getWriters();
-        SubDetailsEntity newSub = new SubDetailsEntity();
+        List<SubDetailsJSONEntity> writers = filmDetails.getWriters();
+        SubDetailsJSONEntity newSub = new SubDetailsJSONEntity();
         newSub.setNameId("2A");
         newSub.setName("Cam2A");
         writers.add(newSub);
         filmDetails.setWriters(writers);
+
+        assertEquals(filmDetails.getWriters().size(), 2);
         assertEquals(filmDetails.getToString(filmDetails.getWriters()), "Cam1A, Cam2A");
+    }
+
+    @Test
+    public void testDirectors()
+    {
+        assertEquals(filmDetails.getDirectors().size(), 1);
+        assertEquals(filmDetails.getDirectors().get(0).getName(), "Cam1A");
     }
 
     @Override
