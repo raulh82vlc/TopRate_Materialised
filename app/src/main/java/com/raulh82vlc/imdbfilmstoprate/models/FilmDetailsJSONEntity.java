@@ -188,7 +188,7 @@ public class FilmDetailsJSONEntity {
         int position = 0;
         String str = "";
         int sizeOfWriters = collective.size();
-        for (FilmDetailsJSONEntity.SubDetailsEntity author : collective) {
+        for (SubDetailsEntity author : collective) {
             if (position < sizeOfWriters - 1)
                 str += author.getName() + ", ";
             else
@@ -198,28 +198,4 @@ public class FilmDetailsJSONEntity {
         return str;
     }
 
-    public class SubDetailsEntity {
-        /**
-         * name : Stephen King
-         * nameId : nm0000175
-         */
-        private String name;
-        private String nameId;
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setNameId(String nameId) {
-            this.nameId = nameId;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getNameId() {
-            return nameId;
-        }
-    }
 }

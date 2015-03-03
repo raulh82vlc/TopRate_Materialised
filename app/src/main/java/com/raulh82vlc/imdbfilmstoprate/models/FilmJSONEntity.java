@@ -40,7 +40,7 @@ public class FilmJSONEntity {
     private String urlPoster;
     private String title;
     private String year;
-    private String rating;
+    private double rating;
     private int ranking;
 
     public void setIdIMDB(String idIMDB) {
@@ -59,7 +59,7 @@ public class FilmJSONEntity {
         this.year = year;
     }
 
-    public void setRating(String rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -83,7 +83,7 @@ public class FilmJSONEntity {
         return year;
     }
 
-    public String getRating() {
+    public double getRating() {
         return rating;
     }
 

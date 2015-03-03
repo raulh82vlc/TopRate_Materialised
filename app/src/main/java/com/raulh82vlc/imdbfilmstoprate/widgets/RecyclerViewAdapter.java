@@ -87,7 +87,7 @@ public class RecyclerViewAdapter
         holder.txtTitle.setText(aFilm.getRanking() + ". "
                 + aFilm.getTitle());
         holder.txtYear.setText("(" + aFilm.getYear() + ")");
-        holder.txtRating.setText(aFilm.getRating());
+        holder.txtRating.setText("" + aFilm.getRating());
         // Setting image to the imageview
         ImageLoader.getInstance().displayImage(aFilm.getUrlPoster(), holder.imgFilmThumbnail);
         // Setting the tag to restore the content
