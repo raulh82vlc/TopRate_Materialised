@@ -25,7 +25,6 @@
         android:layout_width="@dimen/elements_spacing_img_small"
         android:layout_height="@dimen/elements_spacing_img_small"
         android:id="@+id/btnHide"
-        android:text="@string/hide"
         android:layout_gravity="right"
         android:gravity="top|left"
         android:scaleType="centerCrop"

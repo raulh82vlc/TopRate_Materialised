@@ -22,10 +22,9 @@
     <string name="film_captured">Last movie is:</string>
     <string name="error_server">Server issue, try later. No info retrieved from movie:</string>
 
-    <string name="author">Raul Hernandez Lopez</string>
-    <string name="hide">X</string>
+    <string name="author">Raul Hernandez Lopez (C) 2015</string>
     <string name="intro_who">This APP was built by:</string>
     <string name="email">raul.h82@gmail.com</string>
     <string name="contact">Contact:</string>
-    <string name="content_number_movies">movies are on screen rigth now</string>
+    <string name="content_number_movies">movies are on screen right now</string>
 </resources>
