@@ -22,12 +22,17 @@ package com.raulh82vlc.topratemovies.models;
  * into Intents flow or General constants in the program
  */
 public final class Constants {
+    // param keys of activities
+    public static final String A_NAME_FILM = "com.raulh82vlc.topratemovies.nFilm";
+    public static final String A_RANKING = "com.raulh82vlc.topratemovies.nRanking";
+    public static final String A_NAME_IMG = "com.raulh82vlc.topratemovies.nImgPath";
+    // params keys of fragment
+    public static final String F_AUTHOR = "com.raulh82vlc.topratemovies.paramAuthor";
+    public static final String F_EMAIL = "com.raulh82vlc.topratemovies.paramEmail";
+    public static final String F_NMOVIES = "com.raulh82vlc.topratemovies.nMovies";
 
-    public static final String N_NAME_FILM = "com.raulh82vlc.imdbfilmstoprate.nFilm";
-    public static final String N_RANKING = "com.raulh82vlc.imdbfilmstoprate.nRanking";
     public static final int MIN = 1;
     public static final int MAX = 20;
-    public static final String N_NAME_IMG = "com.raulh82vlc.imdbfilmstoprate.nImgPath";
 
     public static enum TOWARDS {TOP,BOTTOM};
 }

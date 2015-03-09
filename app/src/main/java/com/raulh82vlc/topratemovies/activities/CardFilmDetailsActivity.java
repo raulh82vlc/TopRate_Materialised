@@ -101,17 +101,15 @@ public class CardFilmDetailsActivity extends BaseActivity {
         startAllTransitions();
 
         setContentView(R.layout.card_film_details_view);
-        // To start the entry of the new activity
         ActivityCompat.postponeEnterTransition(this);
-
         ButterKnife.inject(this);
         setSupportActionBar(mToolbar);
-        ViewCompat.setTransitionName(imgExtended, Constants.N_NAME_IMG);
+        ViewCompat.setTransitionName(imgExtended, Constants.A_NAME_IMG);
 
         if (getIntent().getExtras() != null) {
             Bundle extra = getIntent().getExtras();
-            String nameOfFilm = extra.getString(Constants.N_NAME_FILM);
-            ranking = extra.getInt(Constants.N_RANKING);
+            String nameOfFilm = extra.getString(Constants.A_NAME_FILM);
+            ranking = extra.getInt(Constants.A_RANKING);
             // now start the transition
             ActivityCompat.startPostponedEnterTransition(this);
             getTopRatedFilms(nameOfFilm);
@@ -210,7 +208,6 @@ public class CardFilmDetailsActivity extends BaseActivity {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 // Do whatever you want with Bitmap
-
                 Palette.generateAsync(loadedImage, new Palette.PaletteAsyncListener() {
                     public void onGenerated(Palette palette) {
                         applyPalette(palette, titleOfFilm);
@@ -228,12 +225,15 @@ public class CardFilmDetailsActivity extends BaseActivity {
      * @param titleOfFilm
      */
     private void applyPalette(Palette iPalette, String titleOfFilm) {
-        int primaryDark = getResources().getColor(R.color.primary_dark);
-        int primary = getResources().getColor(R.color.primary);
-        mToolbar.setBackgroundColor(iPalette.getMutedColor(primary));
-        CompatUtils.setToolBarColor(getWindow(), iPalette.getDarkMutedColor(primaryDark));
-        startScrollFadeIn(titleOfFilm);
-        ActivityCompat.startPostponedEnterTransition(this);
+
+        if(iPalette != null) {
+            int primaryDark = getResources().getColor(R.color.primary_dark);
+            int primary = getResources().getColor(R.color.primary);
+            mToolbar.setBackgroundColor(iPalette.getMutedColor(primary));
+            CompatUtils.setToolBarColor(getWindow(), iPalette.getDarkMutedColor(primaryDark));
+            startScrollFadeIn(titleOfFilm);
+            ActivityCompat.startPostponedEnterTransition(this);
+        }
     }
 
     /**
@@ -312,11 +312,11 @@ public class CardFilmDetailsActivity extends BaseActivity {
      */
     public static void startDetailsActivity(Activity context, View transitionFromPrevImage, FilmJSONEntity iFilm) {
         Intent aIntentDetails = new Intent(context, CardFilmDetailsActivity.class);
-        aIntentDetails.putExtra(Constants.N_NAME_FILM, iFilm.getTitle());
-        aIntentDetails.putExtra(Constants.N_NAME_IMG, iFilm.getUrlPoster());
-        aIntentDetails.putExtra(Constants.N_RANKING, iFilm.getRanking());
+        aIntentDetails.putExtra(Constants.A_NAME_FILM, iFilm.getTitle());
+        aIntentDetails.putExtra(Constants.A_NAME_IMG, iFilm.getUrlPoster());
+        aIntentDetails.putExtra(Constants.A_RANKING, iFilm.getRanking());
 
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(context, transitionFromPrevImage, Constants.N_NAME_IMG);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(context, transitionFromPrevImage, Constants.A_NAME_IMG);
         ActivityCompat.startActivity(context, aIntentDetails, optionsCompat.toBundle());
     }
 
@@ -332,13 +332,19 @@ public class CardFilmDetailsActivity extends BaseActivity {
      */
     private void fallbackActionBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getReturnTransition().addListener(new TransitionFlowAdapter() {
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    mToolbar.setTitleTextColor(Color.WHITE);
-                    mToolbar.getBackground().setAlpha(200);
+            if(mToolbar != null) {
+                if(getWindow()!= null
+                        && getWindow().getReturnTransition() != null) {
+                    getWindow().getReturnTransition().addListener(new TransitionFlowAdapter() {
+                        @Override
+                        public void onTransitionEnd(Transition transition) {
+                            mToolbar.setTitleTextColor(Color.WHITE);
+                            if (mToolbar.getBackground() != null)
+                                mToolbar.getBackground().setAlpha(255);
+                        }
+                    });
                 }
-            });
+            }
         }
     }
 }

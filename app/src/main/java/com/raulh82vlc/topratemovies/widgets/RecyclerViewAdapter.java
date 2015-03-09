@@ -92,7 +92,6 @@ public class RecyclerViewAdapter
         ImageLoader.getInstance().displayImage(aFilm.getUrlPoster(), holder.imgFilmThumbnail);
         // Setting the tag to restore the content
         holder.itemView.setTag(aFilm);
-        holder.itemView.setActivated(true);
     }
 
     @Override

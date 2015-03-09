@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.raulh82vlc.topratemovies.R;
+import com.raulh82vlc.topratemovies.models.Constants;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,10 +37,7 @@ import butterknife.OnClick;
  *
  */
 public class WhoFragment extends Fragment {
-    // params keys
-    private static final String ARG_AUTHOR = "paramAuthor";
-    private static final String ARG_EMAIL = "paramEmail";
-    private static final String ARG_NMOVIES = "nMovies";
+
     // Injected views
     @InjectView(R.id.txtAuthorApp)
     TextView txtAuthorApp;
@@ -70,9 +68,9 @@ public class WhoFragment extends Fragment {
     public static WhoFragment newInstance(String iAuthorName, String iEmail, int iTotalSize) {
         WhoFragment fragment = new WhoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_AUTHOR, iAuthorName);
-        args.putString(ARG_EMAIL, iEmail);
-        args.putInt(ARG_NMOVIES, iTotalSize);
+        args.putString(Constants.F_AUTHOR, iAuthorName);
+        args.putString(Constants.F_EMAIL, iEmail);
+        args.putInt(Constants.F_NMOVIES, iTotalSize);
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,9 +83,9 @@ public class WhoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mAuthorName = getArguments().getString(ARG_AUTHOR);
-            mEmail = getArguments().getString(ARG_EMAIL);
-            numberOfMovies = getArguments().getInt(ARG_NMOVIES);
+            mAuthorName = getArguments().getString(Constants.F_AUTHOR);
+            mEmail = getArguments().getString(Constants.F_EMAIL);
+            numberOfMovies = getArguments().getInt(Constants.F_NMOVIES);
         }
     }
 
@@ -138,7 +136,7 @@ public class WhoFragment extends Fragment {
      *
      */
     @OnClick(R.id.btnHide)
-    public void frame_transparent() {
+    public void frameDestroyed() {
         getActivity().getSupportFragmentManager().popBackStack();
     }
 }

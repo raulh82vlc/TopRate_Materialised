@@ -14,18 +14,22 @@
 ~ See the License for the specific language governing permissions and
 ~ limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_list"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerVertical="true"
-    android:gravity="center"
-    android:layout_gravity="center"
-    android:paddingBottom="@dimen/elements_spacing_medium"
-    android:paddingTop="@dimen/elements_spacing_medium"
     android:foreground="?android:attr/selectableItemBackground"
     >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item_list"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:padding="@dimen/elements_spacing_medium" >
     <ImageView
         android:id="@+id/imgThumbnail"
         android:layout_width="@dimen/elements_spacing_img_small"
@@ -61,4 +65,6 @@
         android:text="@string/mock_info_content"
         android:textColor="@color/accent_bright"
         android:layout_toRightOf="@+id/imgRecycleView" />
-</LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>
