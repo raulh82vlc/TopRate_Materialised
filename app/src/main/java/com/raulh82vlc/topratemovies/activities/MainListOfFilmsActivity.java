@@ -115,7 +115,7 @@ public class MainListOfFilmsActivity extends BaseActivity
             }
         });
         mToolbar.setBackgroundColor(getResources().getColor(R.color.blue_translucent));
-
+        mToolbar.setTitle(getString(R.string.top_rate));
         getTopRatedFilms(Constants.MIN, upRangeFilms, true);
     }
 

@@ -335,14 +335,16 @@ public class CardFilmDetailsActivity extends BaseActivity {
             if(mToolbar != null) {
                 if(getWindow()!= null
                         && getWindow().getReturnTransition() != null) {
-                    getWindow().getReturnTransition().addListener(new TransitionFlowAdapter() {
-                        @Override
-                        public void onTransitionEnd(Transition transition) {
-                            mToolbar.setTitleTextColor(Color.WHITE);
-                            if (mToolbar.getBackground() != null)
-                                mToolbar.getBackground().setAlpha(255);
-                        }
-                    });
+                        getWindow().getReturnTransition().addListener(new TransitionFlowAdapter() {
+                            @Override
+                            public void onTransitionEnd(Transition transition) {
+                                if(mToolbar != null) {
+                                    mToolbar.setTitleTextColor(Color.WHITE);
+                                    if (mToolbar.getBackground() != null)
+                                        mToolbar.getBackground().setAlpha(255);
+                                }
+                            }
+                        });
                 }
             }
         }
