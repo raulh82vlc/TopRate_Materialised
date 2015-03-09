@@ -24,14 +24,6 @@
     android:gravity="center"
     android:layout_gravity="center"
     >
-    <ImageView
-        android:id="@+id/imgExtended"
-        android:layout_width="@dimen/elements_spacing_img_big"
-        android:layout_height="@dimen/elements_spacing_img_big"
-        android:layout_marginTop="@dimen/elements_spacing_large"
-        android:scaleType="centerCrop"
-        android:src="@drawable/imdb"
-     />
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
@@ -40,7 +32,7 @@
         android:paddingTop="@dimen/elements_spacing_large"
         android:textSize="@dimen/letter_title"
         android:gravity="center"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:text="@string/mock_info_title" />
 
     <TextView
@@ -79,17 +71,19 @@
         android:textColor="@android:color/black"
         android:text="@string/mock_info_content" />
     <TextView
-        android:id="@+id/txtSimplePlot"
+        android:id="@+id/txtGenres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/accent_translucent"
         android:text="@string/mock_info_content" />
     <TextView
         android:id="@+id/txtPlot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white"
         android:paddingBottom="@dimen/elements_spacing_large"

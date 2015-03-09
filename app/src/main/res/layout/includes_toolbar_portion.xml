@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-~ Copyright (C) ${YEAR} Antonio Leiva
+~ Copyright (C) ${YEAR} Raul Hernandez Lopez
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
 ~ you may not use this file except in compliance with the License.
@@ -14,11 +14,13 @@
 ~ See the License for the specific language governing permissions and
 ~ limitations under the License.
 -->
-<resources>
-    <color name="primary">#00BCD4</color>
-    <color name="primary_dark">#0097A7</color>
-    <color name="accent">#FFEB3B</color>
-    <color name="accent_bright">#FFF493</color>
-    <color name="accent_translucent">#80FFEB3B</color>
-    <color name="blue_translucent">#8062B1F6</color>
-</resources>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_id"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_width="match_parent"
+    android:background="?attr/colorPrimary"
+    android:elevation="@dimen/button_elevation_low"
+    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>

@@ -29,13 +29,23 @@
         <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
-    <style name="FabStyle">
+    <style name="RippleFabStyle">
         <item name="android:layout_width">?attr/actionBarSize</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:layout_margin">@dimen/elements_spacing_large</item>
-        <item name="android:background">@drawable/ripple</item>
+        <item name="android:background">@drawable/ripple_bck</item>
         <item name="android:src">@drawable/add_new_movie</item>
         <item name="android:outlineProvider">background</item>
-        <item name="android:stateListAnimator">@animator/anim</item>
+        <item name="android:stateListAnimator">@animator/fab_anim</item>
+    </style>
+
+    <style name="WhoStyle">
+        <item name="android:layout_width">?attr/actionBarSize</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_margin">@dimen/elements_spacing_large</item>
+        <item name="android:src">@drawable/who</item>
+        <item name="android:background">@drawable/ripple_bck</item>
+        <item name="android:outlineProvider">background</item>
+        <item name="android:stateListAnimator">@animator/fab_anim</item>
     </style>
 </resources>
