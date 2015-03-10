@@ -48,4 +48,14 @@
         <item name="android:outlineProvider">background</item>
         <item name="android:stateListAnimator">@animator/fab_anim</item>
     </style>
+
+    <style name="RippleFabRetryStyle">
+        <item name="android:layout_width">?attr/actionBarSize</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_margin">@dimen/elements_spacing_large</item>
+        <item name="android:background">@drawable/ripple_bck</item>
+        <item name="android:src">@drawable/reload</item>
+        <item name="android:outlineProvider">background</item>
+        <item name="android:stateListAnimator">@animator/fab_anim</item>
+    </style>
 </resources>

@@ -15,6 +15,9 @@
  */
 package com.raulh82vlc.topratemovies.activities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
@@ -45,5 +48,14 @@ public class BaseActivity extends ActionBarActivity
     */
     public void seeToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    protected boolean isInternetConnectionAvailable() {
+        ConnectivityManager connectManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = connectManager.getActiveNetworkInfo();
+        if (netInfo == null)
+            return false;
+        return true;
     }
 }

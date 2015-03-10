@@ -35,6 +35,7 @@ import android.transition.Transition;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ import retrofit.client.Response;
  * CardView where the further details are filled
  */
 
-public class CardFilmDetailsActivity extends BaseActivity {
+public class CardFilmDetailsActivity extends BaseActivity implements View.OnClickListener {
 
     // constant
     private static final String TAG_DETAIL = "FilmDetails";
@@ -90,9 +91,12 @@ public class CardFilmDetailsActivity extends BaseActivity {
     ScrollView mScrollView;
     @InjectView(R.id.frame_layout)
     FrameLayout mFrameLayout;
+    @InjectView(R.id.imgRetryCard)
+    ImageButton imgRetryCard;
 
     // variable
     private int ranking = 0;
+    private String mNameOfFilm = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +113,17 @@ public class CardFilmDetailsActivity extends BaseActivity {
         if (getIntent().getExtras() != null) {
             Bundle extra = getIntent().getExtras();
             String nameOfFilm = extra.getString(Constants.A_NAME_FILM);
+            setmNameOfFilm(nameOfFilm);
             ranking = extra.getInt(Constants.A_RANKING);
             // now start the transition
             ActivityCompat.startPostponedEnterTransition(this);
-            getTopRatedFilms(nameOfFilm);
+            if (isInternetConnectionAvailable()) {
+                getTopRatedFilms(nameOfFilm);
+            } else {
+                seeToast(getString(R.string.try_again));
+                imgRetryCard.setVisibility(View.VISIBLE);
+                imgRetryCard.setOnClickListener(this);
+            }
         }
     }
 
@@ -133,11 +144,9 @@ public class CardFilmDetailsActivity extends BaseActivity {
                     // Getting the instance of the object from the array returned by the API
 
                     final FilmDetailsJSONEntity filmDetail = filmDetails.get(0);
-                    if(filmDetail != null && !TextUtils.isEmpty(filmDetail.getTitle()) && !TextUtils.isEmpty(filmDetail.getUrlIMDB())) {
+                    if (filmDetail != null && !TextUtils.isEmpty(filmDetail.getTitle()) && !TextUtils.isEmpty(filmDetail.getUrlIMDB())) {
                         fillInfo(filmDetail);
-                    }
-                    else
-                    {
+                    } else {
                         seeToast(getString(R.string.error_server) + " " + iFilmName);
                     }
                 }
@@ -153,6 +162,7 @@ public class CardFilmDetailsActivity extends BaseActivity {
     /**
      * Method fillInfo
      * all written info is filled
+     *
      * @param filmDetail
      */
     private void fillInfo(FilmDetailsJSONEntity filmDetail) {
@@ -196,6 +206,7 @@ public class CardFilmDetailsActivity extends BaseActivity {
     /**
      * Method fillInfo
      * all written info is filled
+     *
      * @param filmDetail
      */
     private void fillImage(FilmDetailsJSONEntity filmDetail) {
@@ -221,12 +232,13 @@ public class CardFilmDetailsActivity extends BaseActivity {
      * Method applyPalette
      * takes the principal colors and  set the toolbar
      * muted color as well as the fade in and starts to pospone the transaction
-     * @param iPalette input palette
+     *
+     * @param iPalette    input palette
      * @param titleOfFilm
      */
     private void applyPalette(Palette iPalette, String titleOfFilm) {
 
-        if(iPalette != null) {
+        if (iPalette != null) {
             int primaryDark = getResources().getColor(R.color.primary_dark);
             int primary = getResources().getColor(R.color.primary);
             mToolbar.setBackgroundColor(iPalette.getMutedColor(primary));
@@ -240,6 +252,7 @@ public class CardFilmDetailsActivity extends BaseActivity {
      * Method startScrollFadeIn
      * starts the scroll setting the components
      * and adding the scroll listener when changing it
+     *
      * @param titleOfFilm
      */
     private void startScrollFadeIn(final String titleOfFilm) {
@@ -260,6 +273,7 @@ public class CardFilmDetailsActivity extends BaseActivity {
      * when users moves the scroll
      * then calculates the alpha from the color
      * sets colors and the title in the tootbar
+     *
      * @param titleOfFilm
      */
     private void setComponentFeatures(String titleOfFilm) {
@@ -282,7 +296,8 @@ public class CardFilmDetailsActivity extends BaseActivity {
     /**
      * Method getItsAlphaColor
      * if API 21 then effects are settled
-     * @param iColor alpha of a color
+     *
+     * @param iColor      alpha of a color
      * @param scrollRatio float variant
      */
     private int getItsAlphaColor(int iColor, float scrollRatio) {
@@ -306,9 +321,10 @@ public class CardFilmDetailsActivity extends BaseActivity {
      * Method startDetailsActivity
      * handles and launches the parameters to the Intent
      * with its corresponding transition
-     * @param context Activity which should be launched (own CardFilmDetailsActivity)
+     *
+     * @param context                 Activity which should be launched (own CardFilmDetailsActivity)
      * @param transitionFromPrevImage view
-     * @param iFilm data structure which corresponds to the Film Entity itself
+     * @param iFilm                   data structure which corresponds to the Film Entity itself
      */
     public static void startDetailsActivity(Activity context, View transitionFromPrevImage, FilmJSONEntity iFilm) {
         Intent aIntentDetails = new Intent(context, CardFilmDetailsActivity.class);
@@ -332,21 +348,42 @@ public class CardFilmDetailsActivity extends BaseActivity {
      */
     private void fallbackActionBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if(mToolbar != null) {
-                if(getWindow()!= null
+            if (mToolbar != null) {
+                if (getWindow() != null
                         && getWindow().getReturnTransition() != null) {
-                        getWindow().getReturnTransition().addListener(new TransitionFlowAdapter() {
-                            @Override
-                            public void onTransitionEnd(Transition transition) {
-                                if(mToolbar != null) {
-                                    mToolbar.setTitleTextColor(Color.WHITE);
-                                    if (mToolbar.getBackground() != null)
-                                        mToolbar.getBackground().setAlpha(255);
-                                }
+                    getWindow().getReturnTransition().addListener(new TransitionFlowAdapter() {
+                        @Override
+                        public void onTransitionEnd(Transition transition) {
+                            if (mToolbar != null) {
+                                mToolbar.setTitleTextColor(Color.WHITE);
+                                if (mToolbar.getBackground() != null)
+                                    mToolbar.getBackground().setAlpha(255);
                             }
-                        });
+                        }
+                    });
                 }
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.imgRetryCard:
+                if(isInternetConnectionAvailable()) {
+                    getTopRatedFilms(mNameOfFilm);
+                    imgRetryCard.setVisibility(View.GONE);
+                }
+                else
+                {
+                    seeToast(getString(R.string.try_again));
+                }
+                break;
+        }
+    }
+
+    public void setmNameOfFilm(String mNameOfFilm) {
+        this.mNameOfFilm = mNameOfFilm;
     }
 }

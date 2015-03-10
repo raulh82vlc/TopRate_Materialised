@@ -24,6 +24,7 @@
     <!-- Toasts -->
     <string name="film_captured">Last movie is:</string>
     <string name="error_server">Server issue, try later. No info retrieved from movie: </string>
+    <string name="try_again">No internet connection. Press Arrow button.</string>
     <!-- Credits -->
     <string name="author">Raul Hernandez Lopez (C) 2015</string>
     <string name="intro_who">This APP was built by:</string>

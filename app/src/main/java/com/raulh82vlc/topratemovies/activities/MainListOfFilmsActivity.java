@@ -42,7 +42,7 @@ import retrofit.client.Response;
 
 /**
  * Created by Raul Hernandez Lopez on 22/02/2015.
- *
+ * <p/>
  * Main Activity where the Recycler view fits
  * by means of a Web Services provider
  * public API
@@ -60,6 +60,8 @@ public class MainListOfFilmsActivity extends BaseActivity
     ImageButton imgBtnFAB;
     @InjectView(R.id.imgWho)
     ImageButton imgWho;
+    @InjectView(R.id.imgRetry)
+    ImageButton imgRetry;
 
     // up range of the films
     private int upRangeFilms;
@@ -93,9 +95,12 @@ public class MainListOfFilmsActivity extends BaseActivity
 
         // Adapter initialisation
         mAdapter = new RecyclerViewAdapter(this, mFilms);
+        // set Listener
         mAdapter.setOnItemClickFromList(this);
+        // buttons listener
         imgBtnFAB.setOnClickListener(this);
         imgWho.setOnClickListener(this);
+        imgRetry.setOnClickListener(this);
 
         // Attaching the adapter to the recyclerview
         mRecyclerView.setAdapter(mAdapter);
@@ -114,9 +119,19 @@ public class MainListOfFilmsActivity extends BaseActivity
                 manager.setOffsetFactor(mToolbar.getHeight());
             }
         });
+        // Toolbar settings
         mToolbar.setBackgroundColor(getResources().getColor(R.color.blue_translucent));
         mToolbar.setTitle(getString(R.string.top_rate));
-        getTopRatedFilms(Constants.MIN, upRangeFilms, true);
+
+        // Checking internet connection
+        if (isInternetConnectionAvailable()) {
+            getTopRatedFilms(Constants.MIN, upRangeFilms, true);
+            imgRetry.setVisibility(View.GONE);
+        } else {
+            imgBtnFAB.setVisibility(View.GONE);
+            imgRetry.setVisibility(View.VISIBLE);
+            seeToast(getString(R.string.try_again));
+        }
     }
 
     @Override
@@ -176,7 +191,7 @@ public class MainListOfFilmsActivity extends BaseActivity
      * the recycler view through the adapter
      *
      * @param filmJSONEntities List of movies
-     * @param iFilmsSize actual size to scroll on
+     * @param iFilmsSize       actual size to scroll on
      */
     private void adapterHandlerForOneFinalInstance(List<FilmJSONEntity> filmJSONEntities, int iFilmsSize) {
         mFilms.add(filmJSONEntities.get(iFilmsSize));
@@ -217,7 +232,17 @@ public class MainListOfFilmsActivity extends BaseActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBtnFAB:
-                getTopRatedFilms(Constants.MIN, ++upRangeFilms, false);
+                if (isInternetConnectionAvailable()) {
+                    getTopRatedFilms(Constants.MIN, ++upRangeFilms, false);
+                    imgRetry.setVisibility(View.GONE);
+                    imgBtnFAB.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    seeToast(getString(R.string.try_again));
+                    imgRetry.setVisibility(View.VISIBLE);
+                    imgBtnFAB.setVisibility(View.GONE);
+                }
                 /* Mock Validation test */
                 /*
                 int count = MockControllerApi.giveInfoOfMockFilm(mFilms);
@@ -237,6 +262,17 @@ public class MainListOfFilmsActivity extends BaseActivity
                                         getString(R.string.email),
                                         mTotalSize))
                         .addToBackStack(null).commit();
+                break;
+            case R.id.imgRetry:
+                if (isInternetConnectionAvailable()) {
+                        getTopRatedFilms(Constants.MIN, upRangeFilms, true);
+                        imgRetry.setVisibility(View.GONE);
+                        imgBtnFAB.setVisibility(View.VISIBLE);
+                }
+                else
+                    seeToast(getString(R.string.try_again));
+                    imgRetry.setVisibility(View.VISIBLE);
+                    imgBtnFAB.setVisibility(View.GONE);
                 break;
         }
     }

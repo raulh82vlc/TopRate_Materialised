@@ -38,6 +38,11 @@
         android:id="@+id/imgBtnFAB"
         android:layout_gravity="bottom|end"
         style="@style/RippleFabStyle"/>
+    <ImageButton
+        android:id="@+id/imgRetry"
+        android:layout_gravity="bottom|end"
+        android:visibility="gone"
+        style="@style/RippleFabRetryStyle"/>
 
     <include layout="@layout/includes_toolbar_portion"/>
 
