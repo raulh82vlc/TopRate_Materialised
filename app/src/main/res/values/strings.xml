@@ -14,14 +14,17 @@
   ~ limitations under the License.
   -->
 <resources>
+    <!-- App titles -->
     <string name="app_name">Top Movies Material</string>
-    <string name="mock_info_title">Loading movie... </string>
-    <string name="mock_info_content"></string>
     <string name="title_activity_film_details">Details of the movie</string>
     <string name="top_rate">Top Movies</string>
+    <!-- App contents -->
+    <string name="mock_info_title">Loading movie... </string>
+    <string name="mock_info_content"></string>
+    <!-- Toasts -->
     <string name="film_captured">Last movie is:</string>
-    <string name="error_server">Server issue, try later. No info retrieved from movie:</string>
-
+    <string name="error_server">Server issue, try later. No info retrieved from movie: </string>
+    <!-- Credits -->
     <string name="author">Raul Hernandez Lopez (C) 2015</string>
     <string name="intro_who">This APP was built by:</string>
     <string name="email">raul.h82@gmail.com</string>
