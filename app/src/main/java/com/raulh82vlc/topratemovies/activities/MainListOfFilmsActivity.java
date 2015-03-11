@@ -60,8 +60,6 @@ public class MainListOfFilmsActivity extends BaseActivity
     ImageButton imgBtnFAB;
     @InjectView(R.id.imgWho)
     ImageButton imgWho;
-    @InjectView(R.id.imgRetry)
-    ImageButton imgRetry;
 
     // up range of the films
     private int upRangeFilms;
@@ -100,7 +98,6 @@ public class MainListOfFilmsActivity extends BaseActivity
         // buttons listener
         imgBtnFAB.setOnClickListener(this);
         imgWho.setOnClickListener(this);
-        imgRetry.setOnClickListener(this);
 
         // Attaching the adapter to the recyclerview
         mRecyclerView.setAdapter(mAdapter);
@@ -125,11 +122,10 @@ public class MainListOfFilmsActivity extends BaseActivity
 
         // Checking internet connection
         if (isInternetConnectionAvailable()) {
+            imgBtnFAB.setImageDrawable(getResources().getDrawable(R.drawable.add_new_movie));
             getTopRatedFilms(Constants.MIN, upRangeFilms, true);
-            imgRetry.setVisibility(View.GONE);
         } else {
-            imgBtnFAB.setVisibility(View.GONE);
-            imgRetry.setVisibility(View.VISIBLE);
+            imgBtnFAB.setImageDrawable(getResources().getDrawable(R.drawable.reload));
             seeToast(getString(R.string.try_again));
         }
     }
@@ -233,15 +229,13 @@ public class MainListOfFilmsActivity extends BaseActivity
         switch (view.getId()) {
             case R.id.imgBtnFAB:
                 if (isInternetConnectionAvailable()) {
+                    imgBtnFAB.setImageDrawable(getResources().getDrawable(R.drawable.add_new_movie));
                     getTopRatedFilms(Constants.MIN, ++upRangeFilms, false);
-                    imgRetry.setVisibility(View.GONE);
-                    imgBtnFAB.setVisibility(View.VISIBLE);
                 }
                 else
                 {
+                    imgBtnFAB.setImageDrawable(getResources().getDrawable(R.drawable.reload));
                     seeToast(getString(R.string.try_again));
-                    imgRetry.setVisibility(View.VISIBLE);
-                    imgBtnFAB.setVisibility(View.GONE);
                 }
                 /* Mock Validation test */
                 /*
@@ -262,17 +256,6 @@ public class MainListOfFilmsActivity extends BaseActivity
                                         getString(R.string.email),
                                         mTotalSize))
                         .addToBackStack(null).commit();
-                break;
-            case R.id.imgRetry:
-                if (isInternetConnectionAvailable()) {
-                        getTopRatedFilms(Constants.MIN, upRangeFilms, true);
-                        imgRetry.setVisibility(View.GONE);
-                        imgBtnFAB.setVisibility(View.VISIBLE);
-                }
-                else
-                    seeToast(getString(R.string.try_again));
-                    imgRetry.setVisibility(View.VISIBLE);
-                    imgBtnFAB.setVisibility(View.GONE);
                 break;
         }
     }
