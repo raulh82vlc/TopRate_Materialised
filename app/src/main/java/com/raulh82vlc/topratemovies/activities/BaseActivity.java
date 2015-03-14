@@ -29,16 +29,18 @@ import com.raulh82vlc.topratemovies.api.WebServicesApiCalls;
  */
 public class BaseActivity extends ActionBarActivity
 {
-    private WebServicesApiCalls webServicesApiCalls;
+    private WebServicesApiCalls mWebServicesApiCalls;
+    private ConnectivityManager mConnectManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        webServicesApiCalls = new WebServicesApiCalls(this);
+        mWebServicesApiCalls = new WebServicesApiCalls(this);
+        mConnectManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
     protected WebServicesApiCalls getWebServicesApiCalls() {
-        return webServicesApiCalls;
+        return mWebServicesApiCalls;
     }
 
     /**
@@ -52,8 +54,8 @@ public class BaseActivity extends ActionBarActivity
 
 
     protected boolean isInternetConnectionAvailable() {
-        ConnectivityManager connectManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = connectManager.getActiveNetworkInfo();
+
+        NetworkInfo netInfo = mConnectManager.getActiveNetworkInfo();
         if (netInfo == null)
             return false;
         return true;
